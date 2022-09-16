@@ -3,13 +3,10 @@ import 'package:flutter/material.dart';
 
 class AnalogWidget extends StatefulWidget {
   DateTime date;
-  double width = 50;
-  double heigh = 50;
-  AnalogWidget(
-      {super.key,
-      required this.date,
-      required this.width,
-      required this.heigh});
+  AnalogWidget({
+    super.key,
+    required this.date,
+  });
 
   @override
   State<AnalogWidget> createState() => _AnalogWidgetState();
@@ -18,10 +15,9 @@ class AnalogWidget extends StatefulWidget {
 class _AnalogWidgetState extends State<AnalogWidget> {
   @override
   Widget build(BuildContext context) {
-    return AnimatedContainer(
-      duration: Duration(seconds: 1),
-      height: widget.heigh,
-      width: widget.width,
+    return Container(
+      width: 200,
+      height: 200,
       child: AnalogClock(
         tickColor: Colors.white70,
         minuteHandColor: Colors.white54,

@@ -24,7 +24,7 @@ class _MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
   @override
   void initState() {
     _controller = AnimationController(
-        vsync: this, duration: Duration(milliseconds: 1500));
+        vsync: this, duration: Duration(milliseconds: 2500));
     _controller.forward();
     super.initState();
   }
@@ -175,7 +175,7 @@ class _MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
                         countryname = locations[value].name;
                         time = locations[value].time;
                         datetime = DateTime.parse(locations[value].datetime);
-                        _controller.forward();
+                        _controller.value = _controller.value * 2 * pi;
                       });
                     },
                     useMagnifier: true,
@@ -215,7 +215,7 @@ class _MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
 
             AnimatedBuilder(
               animation: _controller.view,
-              child: AnalogWidget(date: datetime, width: 200, heigh: 200),
+              child: AnalogWidget(date: datetime),
               builder: (BuildContext context, Widget? child) {
                 return Transform.rotate(
                   angle: _controller.value * 2 * pi,
