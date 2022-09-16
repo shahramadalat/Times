@@ -49,7 +49,7 @@ class _MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
         url: 'Europe/London'),
     Countries(
         id: 1,
-        name: 'ئەمریکا - نیو یۆرک',
+        name: 'ئەمریکا + کەنەدا',
         flag: 'icons/flags/png/us.png',
         url: 'America/New_York'),
     Countries(
@@ -86,6 +86,11 @@ class _MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
         url: 'Europe/Berlin'),
     Countries(
         id: 1,
+        name: 'میسر',
+        flag: 'icons/flags/png/eg.png',
+        url: 'Africa/Cairo'),
+    Countries(
+        id: 1,
         name: 'فەڕەنسا',
         flag: 'icons/flags/png/fr.png',
         url: 'Europe/Paris'),
@@ -94,6 +99,11 @@ class _MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
         name: 'سعودیا',
         flag: 'icons/flags/png/sa.png',
         url: 'Asia/Riyadh'),
+    Countries(
+        id: 1,
+        name: 'نەرویج',
+        flag: 'icons/flags/png/no.png',
+        url: 'Europe/Oslo'),
     Countries(
         id: 1,
         name: 'یۆنان',
