@@ -38,6 +38,9 @@ dependencies:
   arabic_numbers: ^1.0.0
   analog_clock: ^0.1.0
   animated_text_kit: ^4.2.2
+  provider: ^6.0.3
+  glass_kit: ^2.0.1
+
 
 
 

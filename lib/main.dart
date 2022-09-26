@@ -1,15 +1,24 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+import 'package:provider/provider.dart';
 import 'package:times/pages/analog_clock.dart';
+import 'package:times/pages/footer.dart';
+import 'package:times/pages/glass_widget.dart';
+import 'package:times/provider/glass_provider.dart';
+import 'package:times/provider/key_animator.dart';
 import 'package:times/services/countries.dart';
 import 'package:times/pages/text_widget.dart';
 
 void main() {
-  runApp(MaterialApp(
-    theme: ThemeData(fontFamily: 'rudaw'),
-    home: const MyApp(),
-  ));
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => KeyAnimator()),
+        ChangeNotifierProvider(create: (_) => GlassProvider()),
+      ],
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatefulWidget {
@@ -35,11 +44,9 @@ class _MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
     super.dispose();
   }
 
-  var countryname = 'بەریتانیا';
+  var countryname = '';
   String time = '';
   DateTime datetime = DateTime.now();
-  String flag = 'icons/flags/png/us.png';
-  bool firstTime = true;
 
   List<Countries> locations = [
     Countries(
@@ -118,112 +125,89 @@ class _MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      persistentFooterAlignment: AlignmentDirectional.center,
-      persistentFooterButtons: [
-        Text(
-          '0751 231 9423',
-          style: TextStyle(color: Colors.white),
-        ),
-        Text(
-          'بۆ پشتگیریکردنمان لەڕێگەی فاستپەی',
-          style: TextStyle(color: Colors.white70, fontSize: 12),
-        ),
-        IconButton(
-            color: Colors.blueGrey[600],
-            onPressed: () {
-              Clipboard.setData(ClipboardData(text: '07512319423')).then(
-                (_) {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
-                      backgroundColor: Colors.blueGrey[700],
-                      content: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          TextWidget(text: 'کۆپی کرا', size: 12),
-                          SizedBox(height: 20),
-                          Icon(
-                            Icons.check,
-                            color: Colors.lightGreen,
+    return MaterialApp(
+      theme: ThemeData(fontFamily: 'rudaw'),
+      home: Scaffold(
+        persistentFooterAlignment: AlignmentDirectional.center,
+        persistentFooterButtons: [
+          FooterWidget(),
+        ],
+        backgroundColor:
+            //  Colors.blueGrey[700],
+            Color.fromARGB(255, 104, 110, 43),
+        body: Card(
+          elevation: 10,
+          color:
+              //  Colors.blueGrey[500],
+              Color.fromARGB(255, 104, 110, 43),
+          margin: EdgeInsets.symmetric(vertical: 35, horizontal: 10),
+          child: Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                GlassWidget(),
+                TextWidget(text: countryname, size: 24),
+                //for creating some space between text and flag
+                SizedBox(
+                  height: 150,
+                  child: Center(
+                    child: RotatedBox(
+                      quarterTurns: 3,
+                      child: ListWheelScrollView(
+                        onSelectedItemChanged: (value) async {
+                          Countries instance = locations[value];
+                          await instance.getTime();
+                          setState(() {
+                            countryname = locations[value].name;
+                            time = locations[value].time;
+                            datetime =
+                                DateTime.parse(locations[value].datetime);
+                            if (context.read<KeyAnimator>().text == 't') {
+                              context.read<KeyAnimator>().setter('f');
+                            } else {
+                              context.read<KeyAnimator>().setter('t');
+                            }
+                          });
+                          context.read<GlassProvider>().setter(false);
+                        },
+                        useMagnifier: true,
+                        offAxisFraction: 0.25,
+                        squeeze: 0.9,
+                        itemExtent: 100,
+                        physics: const FixedExtentScrollPhysics(),
+                        children: List<Widget>.generate(
+                          locations.length,
+                          (index) => Container(
+                            height: 100,
+                            width: 100,
+                            color: Colors.transparent,
+                            child: RotatedBox(
+                              quarterTurns: 1,
+                              child: Image.asset(locations[index].flag,
+                                  package: 'country_icons'),
+                            ),
                           ),
-                        ],
-                      ),
-                    ),
-                  );
-                },
-              );
-            },
-            icon: Icon(Icons.copy))
-      ],
-      backgroundColor: Colors.blueGrey[900],
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            TextWidget(text: countryname, size: 24),
-            //for creating some space between text and flag
-            SizedBox(
-              height: 150,
-              child: Center(
-                child: RotatedBox(
-                  quarterTurns: 3,
-                  child: ListWheelScrollView(
-                    onSelectedItemChanged: (value) async {
-                      Countries instance = locations[value];
-                      await instance.getTime();
-                      setState(() {
-                        countryname = locations[value].name;
-                        time = locations[value].time;
-                        datetime = DateTime.parse(locations[value].datetime);
-                        _controller.value = _controller.value * 2 * pi;
-                      });
-                    },
-                    useMagnifier: true,
-                    offAxisFraction: 0.25,
-                    squeeze: 0.9,
-                    itemExtent: 100,
-                    physics: const FixedExtentScrollPhysics(),
-                    children: List<Widget>.generate(
-                      locations.length,
-                      (index) => Container(
-                        height: 100,
-                        width: 100,
-                        color: Colors.transparent,
-                        child: RotatedBox(
-                          quarterTurns: 1,
-                          child: Image.asset(locations[index].flag,
-                              package: 'country_icons'),
                         ),
                       ),
                     ),
                   ),
                 ),
-              ),
-            ),
-            //for choosing between two text if its first time or not
-            LayoutBuilder(builder: (context, constraints) {
-              if (firstTime) {
-                firstTime = false;
-                return TextWidget(
-                  text: 'ئاڵاکان بجوڵێنە',
-                  size: 18,
-                );
-              } else {
-                return TextWidget(text: time, size: 55, letterspacing: 7);
-              }
-            }),
 
-            AnimatedBuilder(
-              animation: _controller.view,
-              child: AnalogWidget(date: datetime),
-              builder: (BuildContext context, Widget? child) {
-                return Transform.rotate(
-                  angle: _controller.value * 2 * pi,
-                  child: child,
-                );
-              },
+                TextWidget(text: time, size: 55, letterspacing: 7),
+
+                AnimatedBuilder(
+                  animation: _controller.view,
+                  child: AnalogWidget(date: datetime),
+                  builder: (BuildContext context, Widget? child) {
+                    return Transform.rotate(
+                      angle: _controller.value * 2 * pi,
+                      child: child,
+                    );
+                  },
+                ),
+              ],
             ),
-          ],
+          ),
         ),
       ),
     );
