@@ -12,14 +12,14 @@ class FooterWidget extends StatelessWidget {
       children: [
         Text(
           '0751 231 9423',
-          style: TextStyle(color: Colors.white),
+          style: TextStyle(color: Colors.white70),
         ),
         Text(
           'بۆ پشتگیریکردنمان لەڕێگەی فاستپەی',
           style: TextStyle(color: Colors.white70, fontSize: 12),
         ),
         IconButton(
-          color: Colors.blueGrey[600],
+          color: Colors.white54,
           onPressed: () {
             Clipboard.setData(ClipboardData(text: '07512319423')).then(
               (_) {

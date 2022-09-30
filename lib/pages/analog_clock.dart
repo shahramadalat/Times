@@ -20,10 +20,10 @@ class _AnalogWidgetState extends State<AnalogWidget> {
       height: 200,
       child: AnalogClock(
         tickColor: Colors.white70,
-        minuteHandColor: Colors.white54,
+        minuteHandColor: Colors.white60,
         hourHandColor: Colors.white70,
         showDigitalClock: false,
-        digitalClockColor: Colors.white60,
+        digitalClockColor: Colors.white70,
         showSecondHand: false,
         datetime: widget.date,
         showNumbers: false,

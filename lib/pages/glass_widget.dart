@@ -2,9 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:glass_kit/glass_kit.dart';
 import 'package:provider/provider.dart';
 import 'package:times/pages/text_widget.dart';
-
 import '../provider/glass_provider.dart';
-import '../provider/key_animator.dart';
 
 class GlassWidget extends StatefulWidget {
   const GlassWidget({super.key});
@@ -19,6 +17,7 @@ class _GlassWidgetState extends State<GlassWidget> {
     return Visibility(
       visible: context.watch<GlassProvider>().getVisibility,
       child: GlassContainer.clearGlass(
+        borderColor: Colors.transparent,
         alignment: Alignment.center,
         width: 260,
         height: 50,

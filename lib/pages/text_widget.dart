@@ -34,7 +34,8 @@ class _TextWidgetState extends State<TextWidget> {
               fontSize: widget.size,
               fontFamily: 'rudaw',
               letterSpacing: widget.letterspacing,
-              color: Colors.white,
+              // color: Colors.white,
+              color: Colors.white70,
             ))
       ],
     );
