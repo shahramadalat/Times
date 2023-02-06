@@ -37,7 +37,7 @@ the application can perform well even when the wifi or internet connection is of
 <img src="https://github.com/shahramadalat/Assets/blob/main/RunWithoutWifi.gif" width="200" height="425" />
 
 ### On Windows
-<img src="https://github.com/shahramadalat/Assets/blob/main/OnWindows.gif" width="700" height="400" />
+<img src="https://github.com/shahramadalat/Assets/blob/main/OnWindows.gif" width="1920" height="1080" />
 
 
 
