@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -7,9 +8,9 @@ import 'package:times/pages/footer.dart';
 import 'package:times/pages/glass_widget.dart';
 import 'package:times/provider/glass_provider.dart';
 import 'package:times/provider/key_animator.dart';
-import 'package:times/services/check_connection_service.dart';
 import 'package:times/services/countries.dart';
 import 'package:times/pages/text_widget.dart';
+import 'package:times/pages/country_selector.dart';
 
 void main() {
   runApp(
@@ -32,25 +33,32 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
   late AnimationController _controller;
-  List<Countries> locations = Country.locations;
+  final List<Countries> locations = Country.locations;
+  Timer? _scrollDebounce;
+  final ValueNotifier<String> _countryName = ValueNotifier('');
+  final ValueNotifier<String> _time = ValueNotifier('');
+  final ValueNotifier<DateTime> _dateTime = ValueNotifier(DateTime.now());
+  final double _twoPi = 2 * pi;
 
   @override
   void initState() {
     _controller = AnimationController(
-        vsync: this, duration: Duration(milliseconds: 2500));
+      vsync: this,
+      duration: Duration(milliseconds: 2500),
+    );
     _controller.forward();
     super.initState();
   }
 
   @override
   void dispose() {
+    _scrollDebounce?.cancel();
+    _countryName.dispose();
+    _time.dispose();
+    _dateTime.dispose();
     _controller.dispose();
     super.dispose();
   }
-
-  var countryname = '';
-  String time = '';
-  DateTime datetime = DateTime.now();
 
   @override
   Widget build(BuildContext context) {
@@ -58,82 +66,59 @@ class _MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
       theme: ThemeData(fontFamily: 'rudaw'),
       home: Scaffold(
         persistentFooterAlignment: AlignmentDirectional.center,
-        persistentFooterButtons: [
-          FooterWidget(),
-        ],
-        backgroundColor:
-            //  Colors.blueGrey[700],
-            // Color.fromARGB(255, 104, 110, 43),
-            Color.fromARGB(225, 53, 66, 89),
+        persistentFooterButtons: const [FooterWidget()],
+        backgroundColor: const Color.fromARGB(225, 53, 66, 89),
         body: Card(
           elevation: 1,
-          color:
-              //  Colors.blueGrey[500],
-              Color.fromARGB(255, 53, 66, 89),
-          margin: EdgeInsets.symmetric(vertical: 35, horizontal: 10),
+          color: const Color.fromARGB(255, 53, 66, 89),
+          margin: const EdgeInsets.symmetric(vertical: 35, horizontal: 10),
           child: Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 GlassWidget(),
-                TextWidget(text: countryname, size: 24),
-                //for creating some space between text and flag
-
-                SizedBox(
-                  height: 150,
-                  child: Center(
-                    child: RotatedBox(
-                      quarterTurns: 3,
-                      child: ListWheelScrollView(
-                        onSelectedItemChanged: (value) async {
-                          Countries instance = locations[value];
-                          await instance.getTime();
-                          setState(() {
-                            countryname = locations[value].name;
-                            time = locations[value].time;
-                            datetime =
-                                DateTime.parse(locations[value].datetime);
-
-                            if (context.read<KeyAnimator>().text == 't') {
-                              context.read<KeyAnimator>().setter('f');
-                            } else {
-                              context.read<KeyAnimator>().setter('t');
-                            }
-                          });
-                          context.read<GlassProvider>().setter(false);
-                        },
-                        useMagnifier: true,
-                        offAxisFraction: 0.25,
-                        squeeze: 0.9,
-                        itemExtent: 100,
-                        physics: const FixedExtentScrollPhysics(),
-                        children: List<Widget>.generate(
-                          locations.length,
-                          (index) => Container(
-                            height: 100,
-                            width: 100,
-                            color: Colors.transparent,
-                            child: RotatedBox(
-                              quarterTurns: 1,
-                              child: Image.asset(locations[index].flag,
-                                  package: 'country_icons'),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
+                ValueListenableBuilder<String>(
+                  valueListenable: _countryName,
+                  builder: (_, value, __) => TextWidget(text: value, size: 24),
                 ),
 
-                TextWidget(text: time, size: 55, letterspacing: 7),
+                //for creating some space between text and flag
+                //for creating some space between text and flag
+                CountrySelector(
+                  locations: locations,
+                  onCountrySelected: (instance) {
+                    _countryName.value = instance.name;
+                    _time.value = instance.time;
+                    _dateTime.value = DateTime.parse(instance.datetime);
 
-                AnimatedBuilder(
-                  animation: _controller.view,
-                  child: AnalogWidget(date: datetime),
-                  builder: (BuildContext context, Widget? child) {
-                    return Transform.rotate(
-                      angle: _controller.value * 2 * pi,
-                      child: child,
+                    if (context.read<KeyAnimator>().text == 't') {
+                      context.read<KeyAnimator>().setter('f');
+                    } else {
+                      context.read<KeyAnimator>().setter('t');
+                    }
+                    context.read<GlassProvider>().setter(false);
+                  },
+                ),
+
+                ValueListenableBuilder<String>(
+                  valueListenable: _time,
+                  builder: (_, value, __) =>
+                      TextWidget(text: value, size: 55, letterspacing: 7),
+                ),
+
+                ValueListenableBuilder<DateTime>(
+                  valueListenable: _dateTime,
+                  builder: (_, value, __) {
+                    final clock = AnalogWidget(date: value);
+                    return AnimatedBuilder(
+                      animation: _controller.view,
+                      child: clock,
+                      builder: (BuildContext context, Widget? child) {
+                        return Transform.rotate(
+                          angle: _controller.value * _twoPi,
+                          child: child,
+                        );
+                      },
                     );
                   },
                 ),

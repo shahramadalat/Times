@@ -5,7 +5,7 @@ class Country {
     Countries(
       id: 1,
       name: 'بەریتانیا',
-      flag: 'icons/flags/png/gb.png',
+      flag: 'assets/images/flags/gb.webp',
       url: 'Europe/London',
       utcHour: 1,
       utcMinutes: 0,
@@ -13,7 +13,7 @@ class Country {
     Countries(
       id: 1,
       name: 'ئەمریکا + کەنەدا',
-      flag: 'icons/flags/png/us.png',
+      flag: 'assets/images/flags/us.webp',
       url: 'America/New_York',
       utcHour: -4,
       utcMinutes: 0,
@@ -21,7 +21,7 @@ class Country {
     Countries(
       id: 1,
       name: 'عێراق',
-      flag: 'icons/flags/png/iq.png',
+      flag: 'assets/images/flags/iq.webp',
       url: 'Asia/Baghdad',
       utcHour: 3,
       utcMinutes: 0,
@@ -29,7 +29,7 @@ class Country {
     Countries(
       id: 1,
       name: 'هیندستان',
-      flag: 'icons/flags/png/in.png',
+      flag: 'assets/images/flags/in.webp',
       url: 'Asia/Colombo',
       utcHour: 5,
       utcMinutes: 30,
@@ -37,7 +37,7 @@ class Country {
     Countries(
       id: 1,
       name: 'تورکیا',
-      flag: 'icons/flags/png/tr.png',
+      flag: 'assets/images/flags/tr.webp',
       url: 'Turkey',
       utcHour: 3,
       utcMinutes: 0,
@@ -45,7 +45,7 @@ class Country {
     Countries(
       id: 1,
       name: 'سوید',
-      flag: 'icons/flags/png/se.png',
+      flag: 'assets/images/flags/se.webp',
       url: 'Europe/Stockholm',
       utcHour: 2,
       utcMinutes: 0,
@@ -53,7 +53,7 @@ class Country {
     Countries(
       id: 1,
       name: 'یابان',
-      flag: 'icons/flags/png/jp.png',
+      flag: 'assets/images/flags/jp.webp',
       url: 'Asia/Tokyo',
       utcHour: 9,
       utcMinutes: 0,
@@ -61,7 +61,7 @@ class Country {
     Countries(
       id: 1,
       name: 'چین',
-      flag: 'icons/flags/png/cn.png',
+      flag: 'assets/images/flags/cn.webp',
       url: 'Asia/Ulaanbaatar',
       utcHour: 8,
       utcMinutes: 0,
@@ -69,7 +69,7 @@ class Country {
     Countries(
       id: 1,
       name: 'ئەڵمانیا',
-      flag: 'icons/flags/png/de.png',
+      flag: 'assets/images/flags/de.webp',
       url: 'Europe/Berlin',
       utcHour: 2,
       utcMinutes: 0,
@@ -77,7 +77,7 @@ class Country {
     Countries(
       id: 1,
       name: 'میسر',
-      flag: 'icons/flags/png/eg.png',
+      flag: 'assets/images/flags/eg.webp',
       url: 'Africa/Cairo',
       utcHour: 2,
       utcMinutes: 0,
@@ -85,7 +85,7 @@ class Country {
     Countries(
       id: 1,
       name: 'فەڕەنسا',
-      flag: 'icons/flags/png/fr.png',
+      flag: 'assets/images/flags/fr.webp',
       url: 'Europe/Paris',
       utcHour: 2,
       utcMinutes: 0,
@@ -93,7 +93,7 @@ class Country {
     Countries(
       id: 1,
       name: 'سعودیا',
-      flag: 'icons/flags/png/sa.png',
+      flag: 'assets/images/flags/sa.webp',
       url: 'Asia/Riyadh',
       utcHour: 3,
       utcMinutes: 0,
@@ -101,7 +101,7 @@ class Country {
     Countries(
       id: 1,
       name: 'نەرویج',
-      flag: 'icons/flags/png/no.png',
+      flag: 'assets/images/flags/no.webp',
       url: 'Europe/Oslo',
       utcHour: 2,
       utcMinutes: 0,
@@ -109,7 +109,7 @@ class Country {
     Countries(
       id: 1,
       name: 'یۆنان',
-      flag: 'icons/flags/png/gr.png',
+      flag: 'assets/images/flags/gr.webp',
       url: 'Europe/Athens',
       utcHour: 3,
       utcMinutes: 0,
@@ -117,7 +117,7 @@ class Country {
     Countries(
       id: 1,
       name: 'ئەفغانستان',
-      flag: 'icons/flags/png/af.png',
+      flag: 'assets/images/flags/af.webp',
       url: 'Asia/Kabul',
       utcHour: 4,
       utcMinutes: 30,
