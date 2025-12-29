@@ -21,6 +21,7 @@ class _CountrySelectorState extends State<CountrySelector> {
   static const int _pageSize = 5;
   List<Countries> _visibleLocations = const [];
   bool _isLoadingMore = false;
+  int _selectedIndex = 0;
 
   @override
   void initState() {
@@ -70,12 +71,13 @@ class _CountrySelectorState extends State<CountrySelector> {
     }
 
     return SizedBox(
-      height: 150,
+      height: 170,
       child: Center(
         child: RotatedBox(
           quarterTurns: 3,
           child: ListWheelScrollView(
             onSelectedItemChanged: (value) {
+              setState(() => _selectedIndex = value);
               _maybeLoadMore(value);
               _scrollDebounce?.cancel();
               _scrollDebounce = Timer(
@@ -88,19 +90,33 @@ class _CountrySelectorState extends State<CountrySelector> {
                 },
               );
             },
-            useMagnifier: true,
-            offAxisFraction: 0.25,
+            useMagnifier: false,
+            overAndUnderCenterOpacity: 0.4,
+            diameterRatio: 2.2,
+            perspective: 0.002,
+            offAxisFraction: 0.0,
             squeeze: 0.9,
-            itemExtent: 100,
+            itemExtent: 110,
             physics: const FixedExtentScrollPhysics(),
             children: List<Widget>.generate(
               _visibleLocations.length,
-              (index) => SizedBox(
-                height: 100,
-                width: 100,
-                child: RotatedBox(
-                  quarterTurns: 1,
-                  child: Image.asset(_visibleLocations[index].flag),
+              (index) => AnimatedScale(
+                scale: _selectedIndex == index ? 1.2 : 0.9,
+                duration: const Duration(milliseconds: 180),
+                curve: Curves.easeOut,
+                child: SizedBox(
+                  height: 90,
+                  width: 120,
+                  child: RotatedBox(
+                    quarterTurns: 1,
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(6),
+                      child: Image.asset(
+                        _visibleLocations[index].flag,
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                  ),
                 ),
               ),
             ),
