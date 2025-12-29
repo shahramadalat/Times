@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:glass_kit/glass_kit.dart';
 import 'package:provider/provider.dart';
 import 'package:times/pages/text_widget.dart';
 import '../provider/glass_provider.dart';
@@ -16,11 +15,15 @@ class _GlassWidgetState extends State<GlassWidget> {
   Widget build(BuildContext context) {
     return Visibility(
       visible: context.watch<GlassProvider>().getVisibility,
-      child: GlassContainer.clearGlass(
-        borderColor: Colors.transparent,
-        alignment: Alignment.center,
+      child: Container(
         width: 260,
         height: 50,
+        alignment: Alignment.center,
+        decoration: BoxDecoration(
+          color: Colors.white.withOpacity(0.12),
+          borderRadius: BorderRadius.circular(12),
+          border: Border.all(color: Colors.white24, width: 1),
+        ),
         child: TextWidget(text: 'ئاڵاکان بجوڵێنە', size: 25),
       ),
     );

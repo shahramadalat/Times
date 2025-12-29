@@ -14,6 +14,8 @@ class Countries {
   String url; // location url for api endpoint
   int utcHour; // the country we want to get the time
   int utcMinutes;
+  DateTime? _lastFetchedAt;
+  bool _isFetching = false;
 
   Countries({
     required this.id,
@@ -24,6 +26,16 @@ class Countries {
     required this.utcMinutes,
   });
   Future<void> getTime() async {
+    // Return cached value if fetched recently (debounce to avoid rapid calls)
+    final now = DateTime.now();
+    if (_lastFetchedAt != null &&
+        now.difference(_lastFetchedAt!) < Duration(seconds: 10) &&
+        time.isNotEmpty &&
+        datetime.isNotEmpty) {
+      return;
+    }
+    if (_isFetching) return;
+    _isFetching = true;
     // make the request
     try {
       // check the connection before using the api
@@ -35,9 +47,11 @@ class Countries {
       } else {
         GetTimOnline(false);
       }
+      _lastFetchedAt = DateTime.now();
     } catch (e) {
       time = 'نەتوانرا کاتەکە دیاری بکرێت.';
     }
+    _isFetching = false;
   }
 
   // a method for converting english numbers to arabic
@@ -55,13 +69,14 @@ class Countries {
     if (isActive) {
       // making a request by using http of dart
       Response response = await get(
-          Uri.parse('https://timeapi.io/api/Time/current/zone?timeZone=$url'));
+        Uri.parse('https://timeapi.io/api/Time/current/zone?timeZone=$url'),
+      );
       Map data = jsonDecode(response.body); //
       time = data['time'];
       datetime = data['dateTime'];
     } else {
-      DateTime aTime =
-          DateTime.now().toLocal(); // getting the system current time
+      DateTime aTime = DateTime.now()
+          .toLocal(); // getting the system current time
       Duration aUtc = DateTime.now().timeZoneOffset; // getting the system UTC
       // the formula for converting to the other country time
       DateTime result = aTime
@@ -74,8 +89,9 @@ class Countries {
 
     String twoFirstString = time.substring(0, 2); // get the hour
     int parseHour = int.parse(twoFirstString); //parse the hour
-    bool isGreater =
-        parseHour > 12 ? true : false; // check if greater than 12 ocklock
+    bool isGreater = parseHour > 12
+        ? true
+        : false; // check if greater than 12 ocklock
     if (isGreater) {
       parseHour = parseHour - 12; // if greater than tweleve mines it
       twoFirstString = parseHour.toString();
