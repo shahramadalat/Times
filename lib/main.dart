@@ -37,6 +37,7 @@ class _MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
   Timer? _scrollDebounce;
   final ValueNotifier<String> _countryName = ValueNotifier('');
   final ValueNotifier<String> _time = ValueNotifier('');
+  final ValueNotifier<String> _period = ValueNotifier('');
   final ValueNotifier<DateTime> _dateTime = ValueNotifier(DateTime.now());
   final double _twoPi = 2 * pi;
 
@@ -55,6 +56,7 @@ class _MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
     _scrollDebounce?.cancel();
     _countryName.dispose();
     _time.dispose();
+    _period.dispose();
     _dateTime.dispose();
     _controller.dispose();
     super.dispose();
@@ -89,6 +91,7 @@ class _MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
                   onCountrySelected: (instance) {
                     _countryName.value = instance.name;
                     _time.value = instance.time;
+                    _period.value = instance.period;
                     _dateTime.value = DateTime.parse(instance.datetime);
 
                     if (context.read<KeyAnimator>().text == 't') {
@@ -102,9 +105,21 @@ class _MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
 
                 ValueListenableBuilder<String>(
                   valueListenable: _time,
-                  builder: (_, value, __) =>
-                      TextWidget(text: value, size: 55, letterspacing: 7),
+                  builder: (_, timeValue, __) => ValueListenableBuilder<String>(
+                    valueListenable: _period,
+                    builder: (_, periodValue, __) => Column(
+                      children: [
+                        TextWidget(text: timeValue, size: 55, letterspacing: 7),
+                        TextWidget(
+                          text: periodValue,
+                          size: 30,
+                          letterspacing: 0,
+                        ),
+                      ],
+                    ),
+                  ),
                 ),
+                const SizedBox(height: 20),
 
                 ValueListenableBuilder<DateTime>(
                   valueListenable: _dateTime,

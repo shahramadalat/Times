@@ -96,7 +96,7 @@ class _CountrySelectorState extends State<CountrySelector> {
             perspective: 0.002,
             offAxisFraction: 0.0,
             squeeze: 0.9,
-            itemExtent: 110,
+            itemExtent: 160,
             physics: const FixedExtentScrollPhysics(),
             children: List<Widget>.generate(
               _visibleLocations.length,
@@ -105,8 +105,8 @@ class _CountrySelectorState extends State<CountrySelector> {
                 duration: const Duration(milliseconds: 180),
                 curve: Curves.easeOut,
                 child: SizedBox(
-                  height: 90,
-                  width: 120,
+                  height: 150,
+                  width: 100,
                   child: RotatedBox(
                     quarterTurns: 1,
                     child: ClipRRect(

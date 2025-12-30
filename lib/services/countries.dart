@@ -9,6 +9,7 @@ class Countries {
   int id; // for any case we need it, !not now
   String name; // country name
   String time = "";
+  String period = "";
   String flag; // countries icon
   String datetime = "";
   String url; // location url for api endpoint
@@ -43,9 +44,9 @@ class Countries {
       // return if we are online or offline
       bool IsActive = await checkConectivity.GetConnection();
       if (IsActive) {
-        GetTimOnline(true);
+        await GetTimOnline(true);
       } else {
-        GetTimOnline(false);
+        await GetTimOnline(false);
       }
       _lastFetchedAt = DateTime.now();
     } catch (e) {
@@ -65,7 +66,7 @@ class Countries {
     return '$first:$last';
   }
 
-  void GetTimOnline(bool isActive) async {
+  Future<void> GetTimOnline(bool isActive) async {
     if (isActive) {
       // making a request by using http of dart
       Response response = await get(
@@ -100,6 +101,6 @@ class Countries {
         ? time.replaceRange(0, 2, parseHour.toString())
         : time; // if greater than 12 replace with smaller
     time = getArabicTime(time, twoFirstString); //convert to arabic numbers
-    time = isGreater ? '$time د.ن' : '$time پ.ن';
+    period = isGreater ? 'دوای نیوەڕۆ' : 'پێش نیوەڕۆ';
   }
 }

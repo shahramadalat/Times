@@ -4,6 +4,14 @@ class Country {
   static List<Countries> locations = [
     Countries(
       id: 1,
+      name: 'کوردستان',
+      flag: 'assets/images/flags/kn.webp',
+      url: 'Asia/Baghdad',
+      utcHour: 3,
+      utcMinutes: 0,
+    ),
+    Countries(
+      id: 1,
       name: 'بەریتانیا',
       flag: 'assets/images/flags/gb.webp',
       url: 'Europe/London',
