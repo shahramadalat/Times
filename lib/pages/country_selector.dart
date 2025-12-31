@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import '../services/countries.dart';
 
 class CountrySelector extends StatefulWidget {
@@ -21,7 +22,6 @@ class _CountrySelectorState extends State<CountrySelector> {
   static const int _pageSize = 5;
   List<Countries> _visibleLocations = const [];
   bool _isLoadingMore = false;
-  int _selectedIndex = 0;
 
   @override
   void initState() {
@@ -77,7 +77,7 @@ class _CountrySelectorState extends State<CountrySelector> {
           quarterTurns: 3,
           child: ListWheelScrollView(
             onSelectedItemChanged: (value) {
-              setState(() => _selectedIndex = value);
+              HapticFeedback.lightImpact();
               _maybeLoadMore(value);
               _scrollDebounce?.cancel();
               _scrollDebounce = Timer(
@@ -90,31 +90,27 @@ class _CountrySelectorState extends State<CountrySelector> {
                 },
               );
             },
-            useMagnifier: false,
-            overAndUnderCenterOpacity: 0.4,
-            diameterRatio: 2.2,
+            useMagnifier: true,
+            magnification: 1.1,
+            overAndUnderCenterOpacity: 0.7,
+            diameterRatio: 2.7,
             perspective: 0.002,
             offAxisFraction: 0.0,
-            squeeze: 0.9,
+            squeeze: 0.8,
             itemExtent: 160,
             physics: const FixedExtentScrollPhysics(),
             children: List<Widget>.generate(
               _visibleLocations.length,
-              (index) => AnimatedScale(
-                scale: _selectedIndex == index ? 1.2 : 0.9,
-                duration: const Duration(milliseconds: 180),
-                curve: Curves.easeOut,
-                child: SizedBox(
-                  height: 150,
-                  width: 100,
-                  child: RotatedBox(
-                    quarterTurns: 1,
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(6),
-                      child: Image.asset(
-                        _visibleLocations[index].flag,
-                        fit: BoxFit.cover,
-                      ),
+              (index) => SizedBox(
+                height: 150,
+                width: 80,
+                child: RotatedBox(
+                  quarterTurns: 1,
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(6),
+                    child: Image.asset(
+                      _visibleLocations[index].flag,
+                      fit: BoxFit.cover,
                     ),
                   ),
                 ),

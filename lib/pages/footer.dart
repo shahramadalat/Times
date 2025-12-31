@@ -14,7 +14,7 @@ class FooterWidget extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            Text('0776 681 3358', style: TextStyle(color: Colors.white70)),
+            Text('0751 126 2122', style: TextStyle(color: Colors.white70)),
             Text(
               'بۆ پشتگیریکردنمان لەڕێگەی فاستپەی',
               style: TextStyle(color: Colors.white70, fontSize: 12),

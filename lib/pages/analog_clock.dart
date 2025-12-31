@@ -3,11 +3,12 @@ import 'package:flutter/material.dart';
 
 class AnalogWidget extends StatelessWidget {
   final DateTime date;
-  const AnalogWidget({super.key, required this.date});
+  final double rotationAngle;
+  const AnalogWidget({super.key, required this.date, this.rotationAngle = 0.0});
 
   @override
   Widget build(BuildContext context) {
-    final now = date.toLocal();
+    final now = date;
     final radius = 100.0;
     final double hour =
         (now.hour % 12) + now.minute / 60.0; // fractional hour for smooth hand
@@ -17,7 +18,11 @@ class AnalogWidget extends StatelessWidget {
       width: radius * 2,
       height: radius * 2,
       child: CustomPaint(
-        painter: _ClockPainter(hour: hour, minute: minute),
+        painter: _ClockPainter(
+          hour: hour,
+          minute: minute,
+          rotationAngle: rotationAngle,
+        ),
       ),
     );
   }
@@ -26,7 +31,12 @@ class AnalogWidget extends StatelessWidget {
 class _ClockPainter extends CustomPainter {
   final double hour;
   final double minute;
-  _ClockPainter({required this.hour, required this.minute});
+  final double rotationAngle;
+  _ClockPainter({
+    required this.hour,
+    required this.minute,
+    required this.rotationAngle,
+  });
 
   @override
   void paint(Canvas canvas, Size size) {
@@ -66,7 +76,7 @@ class _ClockPainter extends CustomPainter {
     }
 
     // hour hand
-    final hourAngle = (pi / 6) * hour - pi / 2;
+    final hourAngle = (pi / 6) * hour - pi / 2 + rotationAngle;
     final hourLength = radius * 0.5;
     final hourOffset = Offset(
       cos(hourAngle) * hourLength,
@@ -81,7 +91,7 @@ class _ClockPainter extends CustomPainter {
     );
 
     // minute hand
-    final minuteAngle = (pi / 30) * minute - pi / 2;
+    final minuteAngle = (pi / 30) * minute - pi / 2 + rotationAngle;
     final minuteLength = radius * 0.75;
     final minuteOffset = Offset(
       cos(minuteAngle) * minuteLength,
@@ -101,6 +111,8 @@ class _ClockPainter extends CustomPainter {
 
   @override
   bool shouldRepaint(covariant _ClockPainter oldDelegate) {
-    return oldDelegate.hour != hour || oldDelegate.minute != minute;
+    return oldDelegate.hour != hour ||
+        oldDelegate.minute != minute ||
+        oldDelegate.rotationAngle != rotationAngle;
   }
 }
