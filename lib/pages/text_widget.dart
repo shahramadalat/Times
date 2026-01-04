@@ -6,6 +6,7 @@ class TextWidget extends StatefulWidget {
   String text;
   double? size = 24;
   double? letterspacing = 0;
+  String? font = 'rudaw';
 
   TextWidget({
     super.key,
@@ -13,6 +14,7 @@ class TextWidget extends StatefulWidget {
     this.size,
     this.letterspacing,
     this.number,
+    this.font,
   });
 
   @override
@@ -26,7 +28,7 @@ class _TextWidgetState extends State<TextWidget> {
       widget.text,
       style: TextStyle(
         fontSize: widget.size,
-        fontFamily: 'rudaw',
+        fontFamily: widget.font,
         letterSpacing: widget.letterspacing,
         color: Colors.white70,
       ),

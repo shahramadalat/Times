@@ -14,22 +14,23 @@ class FooterWidget extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            Text('0751 126 2122', style: TextStyle(color: Colors.white70)),
-            Text(
-              'بۆ پشتگیریکردنمان لەڕێگەی فاستپەی',
-              style: TextStyle(color: Colors.white70, fontSize: 12),
+            TextWidget(text: '0751 126 2122', size: 12, font: 'rudaw'),
+            TextWidget(
+              text: 'بۆ پشتگیریکردنمان لەڕێگەی فاستپەی',
+              size: 14,
+              font: 'soran',
             ),
             IconButton(
               color: Colors.white54,
               onPressed: () {
-                Clipboard.setData(ClipboardData(text: '07512319423')).then((_) {
+                Clipboard.setData(ClipboardData(text: '07511262122')).then((_) {
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
-                      backgroundColor: Colors.blueGrey[700],
+                      backgroundColor: Colors.transparent,
                       content: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          TextWidget(text: 'کۆپی کرا', size: 12),
+                          TextWidget(text: 'کۆپی کرا', size: 12, font: 'soran'),
                           SizedBox(height: 20),
                           Icon(Icons.check, color: Colors.lightGreen),
                         ],

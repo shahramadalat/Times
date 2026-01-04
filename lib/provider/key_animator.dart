@@ -1,5 +1,4 @@
 import 'package:flutter/foundation.dart';
-import 'package:provider/provider.dart';
 
 class KeyAnimator with ChangeNotifier, DiagnosticableTreeMixin {
   String _text = "t";

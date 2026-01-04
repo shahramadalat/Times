@@ -15,6 +15,7 @@ dependencies:
   intl: ^0.17.0
   arabic_numbers: ^1.0.0
   provider: ^6.0.3
+  flutter_weather_bg_null_safety: ^1.0.0
 
   cupertino_icons: ^1.0.2
   url_launcher: 6.1.10
@@ -23,12 +24,14 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_launcher_icons: ^0.10.0
+  flutter_launcher_icons: ^0.13.1
 
-flutter_icons:
+flutter_launcher_icons:
   android: true
   ios: true
   image_path: "assets/images/logo.png"
+  adaptive_icon_foreground: "assets/images/logo.png" # Your logo on top
+  adaptive_icon_background: "assets/images/logo.png" # Your background
 
   flutter_lints: ^2.0.0
 
@@ -42,3 +45,7 @@ flutter:
     - family: rudaw
       fonts:
         - asset: assets/fonts/rudawregular2.ttf
+
+    - family: soran
+      fonts:
+        - asset: assets/fonts/shasenem-soran.ttf

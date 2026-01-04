@@ -9,6 +9,8 @@ class Country {
       url: 'Asia/Baghdad',
       utcHour: 3,
       utcMinutes: 0,
+      latitude: 36.0,
+      longitude: 44.0,
     ),
     Countries(
       id: 1,
@@ -17,6 +19,8 @@ class Country {
       url: 'Europe/London',
       utcHour: 1,
       utcMinutes: 0,
+      latitude: 54.5072,
+      longitude: 3.4,
     ),
     Countries(
       id: 1,
@@ -25,6 +29,8 @@ class Country {
       url: 'America/New_York',
       utcHour: -4,
       utcMinutes: 0,
+      latitude: 38,
+      longitude: 106,
     ),
     Countries(
       id: 1,
@@ -33,6 +39,8 @@ class Country {
       url: 'Asia/Baghdad',
       utcHour: 3,
       utcMinutes: 0,
+      latitude: 33.3152,
+      longitude: 44.3661,
     ),
     Countries(
       id: 1,
@@ -41,6 +49,8 @@ class Country {
       url: 'Asia/Colombo',
       utcHour: 5,
       utcMinutes: 30,
+      latitude: 28.6139,
+      longitude: 77.2090,
     ),
     Countries(
       id: 1,
@@ -49,6 +59,18 @@ class Country {
       url: 'Turkey',
       utcHour: 3,
       utcMinutes: 0,
+      latitude: 39.9334,
+      longitude: 32.8597,
+    ),
+    Countries(
+      id: 2,
+      name: 'ئێران',
+      flag: 'assets/images/flags/ir.webp',
+      url: 'Asia/Tehran',
+      utcHour: 3,
+      utcMinutes: 30,
+      latitude: 32,
+      longitude: 53,
     ),
     Countries(
       id: 1,
@@ -57,6 +79,8 @@ class Country {
       url: 'Europe/Stockholm',
       utcHour: 2,
       utcMinutes: 0,
+      latitude: 59.3293,
+      longitude: 18.0686,
     ),
     Countries(
       id: 1,
@@ -65,6 +89,8 @@ class Country {
       url: 'Asia/Tokyo',
       utcHour: 9,
       utcMinutes: 0,
+      latitude: 35.6762,
+      longitude: 139.6503,
     ),
     Countries(
       id: 1,
@@ -73,6 +99,8 @@ class Country {
       url: 'Asia/Ulaanbaatar',
       utcHour: 8,
       utcMinutes: 0,
+      latitude: 39.9042,
+      longitude: 116.4074,
     ),
     Countries(
       id: 1,
@@ -81,6 +109,8 @@ class Country {
       url: 'Europe/Berlin',
       utcHour: 2,
       utcMinutes: 0,
+      latitude: 52.52,
+      longitude: 13.4050,
     ),
     Countries(
       id: 1,
@@ -89,6 +119,8 @@ class Country {
       url: 'Africa/Cairo',
       utcHour: 2,
       utcMinutes: 0,
+      latitude: 30.0444,
+      longitude: 31.2357,
     ),
     Countries(
       id: 1,
@@ -97,6 +129,8 @@ class Country {
       url: 'Europe/Paris',
       utcHour: 2,
       utcMinutes: 0,
+      latitude: 48.8566,
+      longitude: 2.3522,
     ),
     Countries(
       id: 1,
@@ -105,6 +139,8 @@ class Country {
       url: 'Asia/Riyadh',
       utcHour: 3,
       utcMinutes: 0,
+      latitude: 24.7136,
+      longitude: 46.6753,
     ),
     Countries(
       id: 1,
@@ -113,6 +149,8 @@ class Country {
       url: 'Europe/Oslo',
       utcHour: 2,
       utcMinutes: 0,
+      latitude: 59.9139,
+      longitude: 10.7522,
     ),
     Countries(
       id: 1,
@@ -121,6 +159,8 @@ class Country {
       url: 'Europe/Athens',
       utcHour: 3,
       utcMinutes: 0,
+      latitude: 37.9838,
+      longitude: 23.7275,
     ),
     Countries(
       id: 1,
@@ -129,6 +169,8 @@ class Country {
       url: 'Asia/Kabul',
       utcHour: 4,
       utcMinutes: 30,
+      latitude: 34.5553,
+      longitude: 69.2075,
     ),
   ];
 }

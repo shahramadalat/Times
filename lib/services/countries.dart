@@ -13,6 +13,8 @@ class Countries {
   String url; // location url for api endpoint
   int utcHour; // the country we want to get the time
   int utcMinutes;
+  final double? latitude;
+  final double? longitude;
 
   Countries({
     required this.id,
@@ -21,6 +23,8 @@ class Countries {
     required this.url,
     required this.utcHour,
     required this.utcMinutes,
+    this.latitude,
+    this.longitude,
   });
   Future<void> getTime() async {
     // Fully offline: always compute time from utcHour/utcMinutes.
