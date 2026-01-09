@@ -3,18 +3,18 @@ import 'package:flutter/material.dart';
 
 class TextWidget extends StatefulWidget {
   final ValueListenable<int>? number;
-  String text;
-  double? size = 24;
-  double? letterspacing = 0;
-  String? font = 'rudaw';
+  final String text;
+  final double? size;
+  final double? letterspacing;
+  final String? font;
 
-  TextWidget({
+  const TextWidget({
     super.key,
     required this.text,
-    this.size,
-    this.letterspacing,
     this.number,
-    this.font,
+    this.size = 24,
+    this.letterspacing = 0,
+    this.font = 'rudaw',
   });
 
   @override
